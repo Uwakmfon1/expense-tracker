@@ -17,7 +17,21 @@ class TransactionController extends Controller
      */
     public function index()
     {
+        $expenses = Expenses::all();
+        $income = Income::all();
+        $budget = Budget::all();
+        $categories = Categories::all();
+        $recurringTransaction = RecurringTransaction::all();
+        $user = User::all();
 
+        return view('transactions.index',[
+            'expenses'=>$expenses,
+            'income'=>$income,
+            'budget'=>$budget,
+            'categories'=>$categories,
+            '$recurringTransaction'=>$recurringTransaction,
+            'user'=>$user
+        ]);
     }
 
     /**

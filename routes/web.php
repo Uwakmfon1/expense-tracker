@@ -20,7 +20,7 @@ Route::middleware('auth')->group(function () {
 
 
 Route::resource('transactions',TransactionController::class)->names([
-    'index'=>'transactions.index',
+    'index'=>'transactions',
     'create'=>'transactions.create',
     'store'=>'transactions.store',
     'show'=>'transactions.show',

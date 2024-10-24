@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,18 @@ Route::resource('transactions',TransactionController::class)->names([
     'destroy'=>'transactions.delete',
 ]);
 
+Route::resource('categories',CategoryController::class)->names([
+   'index'=>'categories',
+   'create'=>'categories.create',
+   'store'=>'categories.store',
+   'show'=>'categories.show',
+   'edit'=>'categories.edit',
+   'update'=>'categories.update',
+   'destroy'=>'categories.delete'
+]);
+
+
+Route::post('categories/store', [CategoryController::class,'store']);
 
 
 require __DIR__.'/auth.php';

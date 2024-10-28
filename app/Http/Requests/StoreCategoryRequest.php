@@ -22,11 +22,21 @@ class StoreCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'user_id'=>'required',
+            'parent_category_id'=>'required',
             'name'=>'required|string|max:255',
-            'type'=>'required|string|in:income,expense',
-//            'image_url'=>'required',
-//            'description'=>'string',
-//            'parent_id'=>'required'
+            'type'=>'required|string|in:expense,income',
+            'description'=>'string',
+        ];
+    }
+
+    public function messages():array
+    {
+        return[
+        'user_id.required'=>'user id field is required',
+        'name.required'=>'category name is required',
+        'type.required'=>'category type is required',
+        'parent_category_id.required'=>'parent category id is required'
         ];
     }
 }

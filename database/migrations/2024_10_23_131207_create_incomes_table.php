@@ -17,10 +17,6 @@ return new class extends Migration
             $table->string('name');
             $table->decimal('amount',10,2);
             $table->date('received_at');
-            $table->boolean('daily')->nullable();
-            $table->boolean('weekly')->nullable();
-            $table->boolean('monthly')->nullable();
-            $table->boolean('yearly')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
         });

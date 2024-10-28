@@ -2,73 +2,65 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreCategoryRequest;
 use App\Models\Categories;
 use App\Models\ParentCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Builder;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $user = Auth::id();
+        $categories = Categories::where('user_id', $user)->get();
+        return view('categories.index',['categories'=>$categories]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
+        $user_id = Auth::id();
         $parent_category = ParentCategory::all();
-       return view('categories.create',['parent_category'=>$parent_category]);
+        return view('categories.create',[
+            'user_id'=>$user_id,
+            'parent_category'=>$parent_category,
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreCategoryRequest $request)
-    {
-        $result = $request->validated();
 
-        if(Categories::create($result)){
+    public function store(Request $request)
+    {
+        $categories = Categories::all();
+
+        $request['type'] = ParentCategory::where('id', $request['parent_category_id'])->first()->name;
+
+        $result = $request->validate([
+            'user_id'=>'required',
+            'parent_category_id'=>'required',
+            'name'=>'required|string|max:255',
+            'type'=>'required|string|in:expense,income',
+            'description'=>'string'
+        ]);
+
+        try {
+            Categories::create($result);
             return redirect()->back()->with('message', 'Product added Successfully');
-        }else{
-            return redirect()->back()->with('message', "couldn't save product");
+        } catch (\Exception $e) {
+            return redirect()->back()->with('message', "Couldn't save product");
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+
+    public function edit()
     {
-        //
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+
+    public function destroy()
     {
-        //
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }

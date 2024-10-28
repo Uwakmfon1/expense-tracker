@@ -6,5 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Income extends Model
 {
-    //
+    protected $guarded = [];
+    const TYPES = ['daily','weekly','monthly','yearly'];
 }

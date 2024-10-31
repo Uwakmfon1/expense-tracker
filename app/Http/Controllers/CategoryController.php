@@ -39,7 +39,7 @@ class CategoryController extends Controller
             'parent_category_id'=>'required',
             'name'=>'required|string|max:255',
             'type'=>'required|string|in:expense,income',
-            'description'=>'string'
+            'description'=>'required|string'
         ]);
 
         try {

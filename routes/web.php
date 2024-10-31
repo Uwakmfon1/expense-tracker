@@ -37,7 +37,7 @@ Route::resource('transactions',TransactionController::class)->names([
 
 
 Route::get('categories', [CategoryController::class,'index']);
-Route::get('categories/create',[CategoryController::class,'create']);
+Route::get('categories/create',[CategoryController::class,'create'])->name('categories.create');
 Route::post('categories/store',[CategoryController::class,'store']);
 Route::get('categories/show',[CategoryController::class,'show']);
 Route::get('categories/edit',[CategoryController::class,'edit']);
@@ -46,12 +46,12 @@ Route::get('categories/delete',[CategoryController::class,'destroy']);
 
 
 Route::get('income',[IncomeController::class,'index']);
-Route::get('income/create',[IncomeController::class,'create']);
-Route::post('income/store',[IncomeController::class,'store']);
-Route::get('income/show',[IncomeController::class,'show']);
-Route::get('income/edit',[IncomeController::class,'edit']);
-Route::get('income/update',[IncomeController::class,'update']);
-Route::get('income/delete',[IncomeController::class,'delete']);
+Route::get('income/create',[IncomeController::class,'create'])->name('income.create');
+Route::post('income/store',[IncomeController::class,'store'])->name('income.store');
+Route::get('income/show',[IncomeController::class,'show'])->name('income.show');
+Route::get('income/edit/{id}',[IncomeController::class,'edit'])->name('income.edit');
+Route::get('income/update',[IncomeController::class,'update'])->name('income.update');
+Route::get('income/delete',[IncomeController::class,'delete'])->name('income.delete');
 
 
 

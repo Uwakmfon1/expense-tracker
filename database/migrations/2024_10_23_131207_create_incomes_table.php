@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('incomes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('category_id')->constrained('categories')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('name');
+            $table->string('name')->unique();
+            $table->enum('type',['one time','daily','weekly','monthly','yearly']);
             $table->decimal('amount',10,2);
             $table->date('received_at');
             $table->text('description')->nullable();

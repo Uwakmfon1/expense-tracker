@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="container mx-auto mt-5">
         @if(session()->has('message'))
-            <div class="bg-green-500 text-white p-4 rounded-md mt-5 flex justify-between">
+            <div id="flash-message" class="bg-green-500 text-white p-4 rounded-md mt-5 flex justify-between">
                 {{ session()->get('message') }}
                 <button type="button" class="text-white text-lg" aria-hidden="true" onclick="this.parentElement.remove()">
                     &times;
@@ -41,10 +41,23 @@
                     <label for="#">Change Amount</label>
                     <input type="hidden" name="income_id" class="text-white bg-transparent" value="{{$income_item->id}}">
                     <input type="text" id="amount" name="amount" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/4 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <input type="submit" value="Change" class="bg-gray-500 text-white p-2 rounded-md hover:bg-gray-600 mt-5">
+                    <input type="submit" onclick="return confirm('Are You Sure Want to edit this?')" value="Change" class="bg-gray-500 text-white p-2 rounded-md hover:bg-gray-600 mt-5">
                 </form>
 
     @endforeach
 
     </div>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const flashMessage = document.getElementById('flash-message');
+            if (flashMessage) {
+                setTimeout(() => {
+                    flashMessage.style.display = 'none';
+                }, 3000); // 3 seconds
+            }
+        });
+    </script>
+
 </x-app-layout>

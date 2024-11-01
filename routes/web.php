@@ -51,18 +51,17 @@ Route::post('income/store',[IncomeController::class,'store'])->name('income.stor
 Route::get('income/show',[IncomeController::class,'show'])->name('income.show');
 Route::get('income/edit/{id}',[IncomeController::class,'edit'])->name('income.edit');
 Route::post('income/update',[IncomeController::class,'update'])->name('income.update');
-//Route::post('income/delete',[IncomeController::class,'destroy'])->name('income.delete');
 Route::post('income/delete/{id}',[IncomeController::class,'destroy'])->name('income.delete');
 
 
 
-Route::get('expense',[ExpenseController::class,'index']);
-Route::get('expense/create',[ExpenseController::class,'create']);
-Route::post('expense/store',[ExpenseController::class,'store']);
-Route::get('expense/show',[ExpenseController::class,'show']);
-Route::get('expense/edit',[ExpenseController::class,'edit']);
-Route::get('expense/update',[ExpenseController::class,'update']);
-Route::get('expense/delete',[ExpenseController::class,'delete']);
+Route::get('expenses',[ExpenseController::class,'index']);
+Route::get('expenses/create',[ExpenseController::class,'create'])->name('expenses.create');
+Route::post('expenses/store',[ExpenseController::class,'store'])->name('expenses.store');
+Route::get('expenses/show',[ExpenseController::class,'show'])->name('expenses.show');
+Route::get('expenses/edit/{id}',[ExpenseController::class,'edit'])->name('expenses.edit');
+Route::post('expenses/update',[ExpenseController::class,'update'])->name('expenses.update');
+Route::post('expenses/delete/{id}',[ExpenseController::class,'destroy'])->name('expenses.delete');
 
 
 

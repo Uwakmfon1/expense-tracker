@@ -18,11 +18,6 @@ class IncomeController extends Controller
         return view('income.index',['income'=>$income]);
     }
 
-
-    /**
-     * get and display the income duration (daily, weekly, monthly, yearly)
-     * get the respective id of the income type and save it to the database
-     */
     public function create()
     {
         $income_type = Income::TYPES;
@@ -83,6 +78,7 @@ class IncomeController extends Controller
             return redirect('/income')->with('status', "Couldn't save income");
         }
     }
+
 
     private function updateRecord($id, $validated):RedirectResponse
     {

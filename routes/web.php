@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\IncomeController;
@@ -64,6 +65,13 @@ Route::post('expenses/update',[ExpenseController::class,'update'])->name('expens
 Route::post('expenses/delete/{id}',[ExpenseController::class,'destroy'])->name('expenses.delete');
 
 
+
+Route::get('budget',[BudgetController::class,'index'])->name('budget.index');
+Route::get('budget/create',[BudgetController::class,'create'])->name('budget.create');
+Route::post('budget/store',[BudgetController::class,'store'])->name('budget.store');
+Route::get('budget/edit/{id}',[BudgetController::class,'edit'])->name('budget.edit');
+Route::post('budget/update',[BudgetController::class,'update'])->name('budget.update');
+Route::post('budget/delete/{id}',[BudgetController::class,'destroy'])->name('budget.delete');
 
 
 require __DIR__.'/auth.php';

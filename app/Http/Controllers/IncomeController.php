@@ -62,9 +62,14 @@ class IncomeController extends Controller
     }
 
 
-    public function destroy()
+    public function destroy(Request $request)
     {
-
+        try{
+            Income::where('id',$request->id)->delete();
+            return redirect('/income')->with('status', 'Income deleted Successfully');
+        }catch (\Exception $e){
+            return redirect('/income')->with('status', "Couldn't delete income");
+        }
     }
 
 
@@ -73,21 +78,21 @@ class IncomeController extends Controller
     {
         try {
             Income::create($validatedRequest);
-            return redirect()->back()->with('message', 'Income added Successfully');
+            return redirect('/income')->with('status', 'Income added Successfully');
         } catch (\Exception $e) {
-            return redirect()->back()->with('message', "Couldn't save income");
+            return redirect('/income')->with('status', "Couldn't save income");
         }
     }
 
     private function updateRecord($id, $validated):RedirectResponse
     {
         try{
-            //Find the record by ID and update with validated data
             Income::where('id',$id)->update($validated);
             return redirect()->back()->with('message', 'Income updated Successfully');
         }catch (\Exception $e){
             return redirect()->back()->with('message', "Couldn't update income");
         }
     }
+
 
 }

@@ -1,14 +1,5 @@
 <x-app-layout>
     <div class="container mx-auto mt-auto">
-
-        @if(session()->has('message'))
-            <div class="bg-green-500 text-white p-4 rounded-md mt-5 flex justify-between">
-                {{ session()->get('message') }}
-                <button type="button" class="text-white text-lg" aria-hidden="true" onclick="this.parentElement.remove()">
-                    &times;
-                </button>
-            </div>
-        @endif
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -73,6 +64,18 @@
             @endif
         </form>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const flashMessage = document.getElementById('flash-message');
+            if (flashMessage) {
+                setTimeout(() => {
+                    flashMessage.style.display = 'none';
+                }, 3000);
+            }
+        });
+    </script>
+
+
 </x-app-layout>
 
 

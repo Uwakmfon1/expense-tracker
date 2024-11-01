@@ -4,7 +4,7 @@
        @if($income->count() > 0 )
            <div class="container flex-wrap">
            @foreach($income as $income_item)
-                   <a href="{{ url('income/edit',$income_item->id) }}">
+
                <div  class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
 
                    <svg class="w-7 h-7 text-gray-500 dark:text-gray-400 mb-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -20,12 +20,12 @@
                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11v4.833A1.166 1.166 0 0 1 13.833 17H2.167A1.167 1.167 0 0 1 1 15.833V4.167A1.166 1.166 0 0 1 2.167 3h4.618m4.447-2H17v5.768M9.111 8.889l7.778-7.778"/>
                        </svg>
                    </p>
+                   <a href="{{ url('income/edit',$income_item->id) }}" class="bg-gray-500 text-white p-2 rounded-md hover:bg-gray-600">Edit Amount </a>
                </div>
-                   </a>
            @endforeach
                <br><br>
                <div>
-                   <a class="bg-green-500 text-white p-4 rounded-md mt-5" href="{{ route('income.create') }}">Add a new Income</a>
+                   <a class="bg-green-500 text-white p-4 rounded-md mt-5 hover:bg-gray-700" href="{{ route('income.create') }}">Add a new Income</a>
                </div>
        @else
            <div class="mt-10">

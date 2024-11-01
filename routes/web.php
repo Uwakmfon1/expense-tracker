@@ -50,8 +50,9 @@ Route::get('income/create',[IncomeController::class,'create'])->name('income.cre
 Route::post('income/store',[IncomeController::class,'store'])->name('income.store');
 Route::get('income/show',[IncomeController::class,'show'])->name('income.show');
 Route::get('income/edit/{id}',[IncomeController::class,'edit'])->name('income.edit');
-Route::get('income/update',[IncomeController::class,'update'])->name('income.update');
+Route::post('income/update',[IncomeController::class,'update'])->name('income.update');
 Route::get('income/delete',[IncomeController::class,'delete'])->name('income.delete');
+Route::get('income/delete/{id}',[IncomeController::class,'delete'])->name('income.delete');
 
 
 

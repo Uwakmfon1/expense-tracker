@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCategoryRequest;
 use App\Models\Categories;
 use App\Models\ParentCategory;
 use Illuminate\Http\Request;
@@ -28,19 +29,11 @@ class CategoryController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
-        $categories = Categories::all();
+       $request['type'] = ParentCategory::where('id', $request['parent_category_id'])->first()->name;
 
-        $request['type'] = ParentCategory::where('id', $request['parent_category_id'])->first()->name;
-
-        $result = $request->validate([
-            'user_id'=>'required',
-            'parent_category_id'=>'required',
-            'name'=>'required|string|max:255',
-            'type'=>'required|string|in:expense,income',
-            'description'=>'required|string'
-        ]);
+        $result = $request->validated();
 
         try {
             Categories::create($result);

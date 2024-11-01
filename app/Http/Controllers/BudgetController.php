@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreBudgetRequest;
 use App\Models\Budget;
 use App\Models\Categories;
 use App\Models\Income;
@@ -35,24 +36,10 @@ class BudgetController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreBudgetRequest $request)
     {
-
-        $validated = $request->validate([
-            'category_id' => 'required|numeric|min:0|max:255',
-            'name' => 'required|string|max:255',
-            'amount' => 'required|numeric|min:0',
-            'start_date'=> 'required|date',
-            'end_date'=> 'required|date',
-        ]);
-
-
-        try{
-        Budget::create($validated);
-        return redirect('/budget')->with('status','Budget Saved Successfully');
-        }catch (\Exception $e){
-            return redirect('/budget')->with('status',"Budget couldn't be saved");
-        }
+        $validated = $request->validated();
+        return $this->saveBudget($validated);
     }
 
 
@@ -95,6 +82,15 @@ class BudgetController extends Controller
 
 
 
+    private function saveBudget($validatedRequest):RedirectResponse
+    {
+        try {
+            Budget::create($validatedRequest);
+            return redirect('/budget')->with('status', 'Budget added Successfully');
+        } catch (\Exception $e) {
+            return redirect('/budget')->with('status', "Couldn't save Budget");
+        }
+    }
 
     private function updateRecord($id, $validated):RedirectResponse
     {

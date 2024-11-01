@@ -35,7 +35,7 @@
                                 <form action="{{ url('budget/delete',$budget_item->id) }}" method="POST">
                                     @csrf
                                     <input type="hidden" name="id" value="{{$budget_item->id}}">
-                                    <input type="submit" name="deleteItem" id="deleteItem" value="Delete Amount" onclick="return confirm('Are You Sure Want to Delete?')" class="bg-red-400 text-white p-2 rounded-md hover:bg-red-600">
+                                    <input type="submit" name="deleteItem" id="deleteItem" value="Delete Budget" onclick="return confirm('Are You Sure Want to Delete?')" class="bg-red-400 text-white p-2 rounded-md hover:bg-red-600">
                                 </form>
                             </div>
                         </div>

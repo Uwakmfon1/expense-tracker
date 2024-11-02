@@ -8,6 +8,7 @@ use App\Models\Categories;
 use App\Models\Income;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class BudgetController extends Controller
 {
@@ -17,6 +18,7 @@ class BudgetController extends Controller
     public function index()
     {
         $budget = Budget::all();
+//        $formatted_start_date = Carbon::parse()
         return view('budget.index',[
             'budget'=>$budget,
         ]);

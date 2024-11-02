@@ -1,6 +1,5 @@
 <x-app-layout>
     <div class="container mx-auto mt-5">
-
         @if(session()->has('status'))
             <div id="flash-message" class="bg-green-500 text-white p-4 w-1/4 rounded-md mt-5 flex justify-between">
                 {{ session()->get('status') }}
@@ -30,6 +29,12 @@
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11v4.833A1.166 1.166 0 0 1 13.833 17H2.167A1.167 1.167 0 0 1 1 15.833V4.167A1.166 1.166 0 0 1 2.167 3h4.618m4.447-2H17v5.768M9.111 8.889l7.778-7.778"/>
                                 </svg>
                             </p>
+
+                            <div class="mt-2 mb-4">
+                                <p>Start Date: {{ \Carbon\Carbon::parse($budget_item->start_date)->translatedFormat('jS F, Y') }}</p>
+                                <p>End Date: {{ \Carbon\Carbon::parse($budget_item->end_date)->translatedFormat('jS F, Y') }}</p>
+                            </div>
+
                             <div class="flex space-x-8">
                                 <a href="{{ url('budget/edit',$budget_item->id) }}" class="bg-gray-500 text-white p-2 rounded-md hover:bg-gray-600">Edit Amount </a>
                                 <form action="{{ url('budget/delete',$budget_item->id) }}" method="POST">

@@ -9,7 +9,8 @@ use App\Models\Income;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 class BudgetController extends Controller
 {
     /**
@@ -41,6 +42,9 @@ class BudgetController extends Controller
     public function store(StoreBudgetRequest $request)
     {
         $validated = $request->validated();
+//    dd($validated);
+
+        $validated['user_id'] = Auth::id();
         return $this->saveBudget($validated);
     }
 

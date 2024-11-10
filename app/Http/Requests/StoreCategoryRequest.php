@@ -25,8 +25,8 @@ class StoreCategoryRequest extends FormRequest
             'user_id'=>'required',
             'parent_category_id'=>'required',
             'name'=>'required|string|max:255',
-            'type'=>'required|string|in:expense,income',
-            'description'=>'string',
+//            'type'=>'required|string|in:income,expense',
+            'description'=>'required|string',
         ];
     }
 

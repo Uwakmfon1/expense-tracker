@@ -1,15 +1,26 @@
 <x-app-layout>
     <div class="container mx-auto">
-            @if(session()->has('message'))
-                <div class="bg-green-500 text-white p-4 rounded-md mt-5 flex justify-between">
-                    {{ session()->get('message') }}
-                    <button type="button" class="text-white text-lg" aria-hidden="true" onclick="this.parentElement.remove()">
-                        &times;
-                    </button>
-                </div>
-            @endif
+{{--            @if(session()->has('message'))--}}
+{{--                <div class="bg-green-500 text-white p-4 rounded-md mt-5 flex justify-between">--}}
+{{--                    {{ session()->get('message') }}--}}
+{{--                    <button type="button" class="text-white text-lg" aria-hidden="true" onclick="this.parentElement.remove()">--}}
+{{--                        &times;--}}
+{{--                    </button>--}}
+{{--                </div>--}}
+{{--            @endif--}}
 
-        <form action="{{ url('/categories/store') }}" method="POST" class="mt-5 max-w-sm mx-auto border-white">
+                @if(session()->has('status'))
+                    <div class="bg-green-500 text-white p-4 rounded-md mt-5 flex justify-between">
+                     <li>
+                         {{ session()->get('status') }}
+                     </li>
+                        <button type="button" class="text-white text-lg" aria-hidden="true" onclick="this.parentElement.remove()">
+                            &times;
+                        </button>
+                    </div>
+                @endif
+
+        <form action="{{ route('categories.store') }}" method="POST" class="mt-5 max-w-sm mx-auto border-white">
             @csrf
             <h2 class="font-bold text-white">Create a new Category</h2>
             <br>
@@ -25,6 +36,13 @@
                     </select>
                         <input type="hidden" value="{{ $user_id }}" name="user_id">
             </div>
+
+{{--            @php--}}
+{{--            use App\Models\ParentCategory;--}}
+{{--                $request['type'] = ParentCategory::where('id', $request['parent_category_id'])->first()->name;--}}
+{{--            @endphp--}}
+
+            <input type="hidden">
 
             <div class="mb-5">
                 <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category Name</label>

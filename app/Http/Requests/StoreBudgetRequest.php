@@ -23,6 +23,7 @@ class StoreBudgetRequest extends FormRequest
     {
         return [
             'category_id' => 'required|numeric|min:0|max:255',
+            'user_id' => 'exists:App\Models\User,id',
             'name' => 'required|string|max:255',
             'amount' => 'required|numeric|min:0',
             'start_date'=> 'required|date',

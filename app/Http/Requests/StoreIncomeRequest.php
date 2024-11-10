@@ -23,6 +23,7 @@ class StoreIncomeRequest extends FormRequest
     {
         return [
             'category_id' => 'required|integer|exists:categories,id',
+            'user_id'=>'required|integer',
             'name' => 'required|string|max:255',
             'type' => 'required|string|in:one time,daily,weekly,monthly,yearly',
             'amount' => 'required|numeric|min:0',

@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Models\Categories;
 use App\Models\ParentCategory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Redirect;
 
 class CategoryController extends Controller
 {
@@ -29,19 +31,20 @@ class CategoryController extends Controller
     }
 
 
-    public function store(StoreCategoryRequest $request)
+    public function store(StoreCategoryRequest $request): RedirectResponse
     {
-       $request['type'] = ParentCategory::where('id', $request['parent_category_id'])->first()->name;
-
+        $request['type'] = ParentCategory::where('id', $request['parent_category_id'])->first()->name;
         $result = $request->validated();
 
         try {
             Categories::create($result);
-            return redirect()->back()->with('message', 'Product added Successfully');
+            return redirect('/categories')->with('status', 'Category added Successfully');
         } catch (\Exception $e) {
-            return redirect()->back()->with('message', "Couldn't save product");
+            return redirect('/categories')->with('status', "Couldn't add categories");
         }
     }
+
+
 
 
     public function edit()

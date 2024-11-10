@@ -11,26 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('budgets', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('category_id')->constrained('categories')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->string('name');
-            $table->enum('type',['income','expense']);
-            $table->string('image_url')->nullable();
-            $table->text('description')->nullable();
+            $table->decimal('amount',10,2);
+            $table->date('start_date');
+            $table->date('end_date');
             $table->timestamps();
         });
-
-
-
     }
-
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('budgets');
     }
 };

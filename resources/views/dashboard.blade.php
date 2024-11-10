@@ -1,11 +1,3 @@
-{{--@push('scripts')--}}
-{{--    <script>--}}
-{{--        const myChart = new Chart(--}}
-{{--            document.getElementById('myChart'),--}}
-{{--            config // We'll add the configuration details later.--}}
-{{--        );--}}
-{{--    </script>--}}
-{{--@endpush--}}
 
 <x-app-layout>
 
@@ -13,8 +5,44 @@
         <h2 class="text-white text-xl font-bold">Welcome to the app</h2>
     </div>
 
+{{--    @php--}}
+{{--        var_dump($category_name);--}}
+{{--    @endphp--}}
+
+    {{--    <div>--}}
+{{--        <canvas id="myChart"></canvas>--}}
+{{--    </div>--}}
+
+{{--    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>--}}
+
+{{--    <script>--}}
+{{--        const ctx = document.getElementById('myChart');--}}
+{{--        const yValues = percentages;--}}
+
+{{--        new Chart(ctx, {--}}
+{{--            type: 'bar',--}}
+{{--            data: {--}}
+{{--               labels: {!! json_encode($category_name) !!}, //  labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'], //--}}
+{{--                datasets: [{--}}
+{{--                    labels:'Spending by Category',--}}
+{{--                    data: yValues,//{!! json_encode($totals) !!},--}}
+{{--                    // data: [12, 19, 3, 5, 2, 3],--}}
+{{--                    borderWidth: 1--}}
+{{--                }]--}}
+{{--            },--}}
+{{--            options: {--}}
+{{--                scales: {--}}
+{{--                    y: {--}}
+{{--                        beginAtZero: true--}}
+{{--                    }--}}
+{{--                }--}}
+{{--            }--}}
+{{--        });--}}
+{{--    </script>--}}
+
 
     <canvas id="expenseChart" style="width:100%;max-width:700px;margin-top:3em;"> </canvas>
+
 
 
     <script>
@@ -32,30 +60,44 @@
         const percentages = percentagesRelativeToSum(array);
 
 
+        const data = [
+            {name: {!!  json_encode($category_name)!!}, totals:{!! json_encode($totals) !!}},
+        // { year: 2010, count: 10 },
+        // { year: 2011, count: 20 },
+        // { year: 2012, count: 15 },
+        // { year: 2013, count: 25 },
+        // { year: 2014, count: 22 },
+        // { year: 2015, count: 30 },
+        // { year: 2016, count: 28 },
+        ];
+
+
         const ctx = document.getElementById('expenseChart').getContext('2d');
        const yValues = percentages;
         const expenseChart = new Chart(ctx, {
-            type: 'pie', // or 'bar'
+            type: 'bar', // or 'bar'
             data: {
-                labels: {!! json_encode($category_name) !!} , // {!!  json_encode($totals) !!},
+                labels: data.map(row=> row.name),  //{!! json_encode($category_name) !!},
 
                 datasets: [{
                     label: 'Spending by Category',
-                    data: yValues,//{!! json_encode($totals) !!},
+                    data: data.map(row=> row.totals), //yValues,//{!! json_encode($totals) !!},
                     backgroundColor: [
                         '#b91d47',
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
                         'rgba(255, 206, 86, 0.2)',
+
+
                         // Add more colors as needed
                     ],
-                    borderColor: [
-                        '#b91d47',
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        // Add more border colors as needed
-                    ],
+                    // borderColor: [
+                    //     '#b91d47',
+                    //     'rgba(255, 99, 132, 1)',
+                    //     'rgba(54, 162, 235, 1)',
+                    //     'rgba(255, 206, 86, 1)',
+                    //     // Add more border colors as needed
+                    // ],
                     color: ['#fff'],
                     borderWidth: 1
                 }]
@@ -74,6 +116,11 @@
                     display:true,
                     text:"Testing the app",
                     color:'#fff'
+                },
+                scales:{
+                    y:{
+                        beginAtZero:true
+                    }
                 }
             },
 

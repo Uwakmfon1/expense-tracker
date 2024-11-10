@@ -8,8 +8,6 @@
                 </button>
             </div>
         @endif
-        <br>
-
 
         @if($budget->count() > 0 )
             <div class="container">

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 class Budget extends Model
 {
-    protected $fillable = ['category_id','name','amount','description','start_date','end_date'];
+    protected $fillable = ['category_id','user_id','name','amount','description','start_date','end_date'];
 
     public function getFormattedDateAttribute()
     {

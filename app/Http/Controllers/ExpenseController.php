@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Models\Expenses;
 use App\Http\Requests\StoreExpenseRequest;
+use Illuminate\Support\Facades\Auth;
 
 
 class ExpenseController extends Controller
@@ -21,10 +22,13 @@ class ExpenseController extends Controller
 
     public function create()
     {
+
         $parentCategory = ParentCategory::where('id',2);
         $categories = Categories::where('parent_category_id',2)->get();
+        $user_id = Auth::id();
         return view('expenses.create',[
             'categories'=>$categories,
+            'user_id'=>$user_id,
         ]);
     }
 

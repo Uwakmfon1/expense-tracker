@@ -15,10 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
+Route::get('logout',[]);
 //Route::get('/dashboard', function () {
 //    return view('dashboard');
 //})->middleware(['auth', 'verified'])->name('dashboard');
+
 Route::get('/dashboard',[DashboardController::class,'show'])->middleware(['auth','verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -41,7 +42,7 @@ Route::resource('transactions',TransactionController::class)->names([
 
 Route::get('categories', [CategoryController::class,'index']);
 Route::get('categories/create',[CategoryController::class,'create'])->name('categories.create');
-Route::post('categories/store',[CategoryController::class,'store']);
+Route::post('categories/store',[CategoryController::class,'store'])->name('categories.store');
 Route::get('categories/show',[CategoryController::class,'show']);
 Route::get('categories/edit',[CategoryController::class,'edit']);
 Route::get('categories/update',[CategoryController::class,'update']);

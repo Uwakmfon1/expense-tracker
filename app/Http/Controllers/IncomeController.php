@@ -37,6 +37,9 @@ class IncomeController extends Controller
      */
     public function store(StoreIncomeRequest $request)
     {
+
+//        $request['user_id']= Auth::id();
+//        dd($request);
         $validatedRequest = $request->validated();
         return $this->storeIncome($validatedRequest);
     }

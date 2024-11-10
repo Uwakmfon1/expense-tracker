@@ -23,6 +23,7 @@ class StoreExpenseRequest extends FormRequest
     {
         return [
             'category_id' => 'required|numeric|min:0|max:255',
+            'user_id'=>'required|integer',
             'name' => 'required|string|max:255',
             'amount' => 'required|numeric|min:0',
             'description' => 'required|string|max:500',

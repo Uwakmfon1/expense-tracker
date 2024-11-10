@@ -35,7 +35,6 @@ class ExpenseController extends Controller
 
     public function store(StoreExpenseRequest $request)
     {
-//        dd($request);
         $validated = $request->validated();
         return $this->storeExpenses($validated);
     }

@@ -7,6 +7,7 @@ use App\Models\Categories;
 use App\Models\Expenses;
 use App\Models\Income;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 //use ConsoleTVs\Charts\Facades\Charts;
 
@@ -17,7 +18,7 @@ class DashboardController extends Controller
      * show summary of income
      * show summary of budget
     */
-    public function show()
+    public function show(Request $request)
     {
         $expenses = Expenses::select('categories.name as category_name', DB::raw('SUM(expenses.amount) as total'))
             ->join('categories', 'expenses.category_id', '=', 'categories.id')
@@ -27,6 +28,7 @@ class DashboardController extends Controller
         $totalExpenses = Expenses::select(DB::raw('SUM(expenses.amount) as totalExpenses'))->get();
         $totalIncome = Income::select(DB::raw('SUM(incomes.amount) as totalIncome'))->get();
         $totalBudget = Budget::select(DB::raw('SUM(budgets.amount) as totalBudget'))->get();
+
         $category_name = $expenses->pluck('category_name');
         $totals = $expenses->pluck('total');
 
@@ -51,6 +53,11 @@ class DashboardController extends Controller
         ];
 
 
+
+//        return total balance = total income - total expenses
+
+
+
         return view('dashboard',[
             'data'=> $data,
             'category_name'=>$category_name,
@@ -60,7 +67,41 @@ class DashboardController extends Controller
             'totalIncome'=>$totalIncome,
             'totalBudget'=>$totalBudget,
             'category1'=> $category1,
+//            'totalExpenses1'=>$totalExpense1
+        ]);
 
+        return response()->json([
+            'data'=> $data,
+            'category_name'=>$category_name,
+            'totals'=>$totals,
+            'expenses'=>$expenses,
+            'totalExpenses'=>$totalExpenses,
+            'totalIncome'=>$totalIncome,
+            'totalBudget'=>$totalBudget,
+            'category1'=> $category1,
         ]);
     }
+
+
+    public function search(Request $request)
+    {
+       $request->validate([
+            'from'=>'required|date',
+            'to'=>'required|date'
+        ]);
+
+        $totalExpense1 = Expenses::where('user_id',Auth::id())
+            ->when($request->from, function($query) use($request){
+                return $query->whereDate('date','>=', $request->from);
+            })
+            ->when($request->to, function($query) use($request){
+                return $query->whereDate('date','<=', $request->to);
+            })
+            ->selectRaw('SUM(amount) as amount')
+            ->first();
+
+        return redirect()->with();
+    }
+
+
 }

@@ -21,6 +21,7 @@ Route::get('logout',[]);
 //})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/dashboard',[DashboardController::class,'show'])->middleware(['auth','verified'])->name('dashboard');
+Route::post('/dashboard/post',[DashboardController::class,'show'])->middleware(['auth'])->name('dashboard.search');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
